@@ -1,0 +1,41 @@
+NAME="f22-backgrounds"
+VERSION=22.1.1
+RELEASE=1
+CATEGORY="X11"
+SUMMARY="Fedora 22 desktop wallpaper"
+DESCRIPTION="Default wallpaper for the Fedora 22 release, along with a
+collection of selected wallpapers contributed by the Fedora community."
+HOMEPAGE="https://fedoraproject.org/wiki/Design"
+SRC_URI="https://fedorahosted.org/released/design-team/${NAME}-${VERSION}.tar.xz"
+
+ARCH=noarch
+
+PKG_NAMES="${NAME} ${NAME}-extras"
+f22_backgrounds_DOCS="Attribution CC-BY-SA-3.0"
+f22_backgrounds_CONTENTS="
+	usr/share/backgrounds/f22/default/
+	usr/share/backgrounds/xfce/f22.png
+	usr/share/gnome-background-properties/f22.xml
+	usr/share/mate-background-properties/f22.xml
+	usr/share/wallpapers/F22/
+"
+f22_backgrounds_extras_SUMMARY="Fedora 22 extra wallpapers"
+f22_backgrounds_extras_DOCS="Attribution-Extras CC-BY-SA-3.0"
+f22_backgrounds_extras_CONTENTS="
+	usr/share/backgrounds/f22/extras/
+	usr/share/backgrounds/xfce/f22-*
+	usr/share/gnome-background-properties/f22-extras.xml
+	usr/share/mate-background-properties/f22-extras.xml
+	usr/share/wallpapers/F22_*/
+"
+
+src_compile() {
+	cd ${S}
+	cygmake
+}
+
+src_install() {
+	cd ${S}
+	cyginstall
+	mv ${D}/usr/share/{xfce4/backdrops,backgrounds/xfce}
+}
